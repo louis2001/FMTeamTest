@@ -1,47 +1,23 @@
-//
-//  HelloWorldScene.h
-//  FifaManager
-//
-//  Created by louis on 13. 1. 18..
-//  Copyright __MyCompanyName__ 2013년. All rights reserved.
-//
-#ifndef __HELLO_WORLD_H__
-#define __HELLO_WORLD_H__
+#ifndef __HELLOWORLD_SCENE_H__
+#define __HELLOWORLD_SCENE_H__
 
-// When you import this file, you import all the cocos2d classes
 #include "cocos2d.h"
-#include "Box2D.h"
+#include "Config.h"
 
-class PhysicsSprite : public cocos2d::CCSprite
+class HelloWorld : public cocos2d::CCLayer
 {
 public:
-    PhysicsSprite();
-    void setPhysicsBody(b2Body * body);
-    virtual bool isDirty(void);
-    virtual cocos2d::CCAffineTransform nodeToParentTransform(void);
-private:
-    b2Body* m_pBody;    // strong ref
-};
+    // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
+    virtual bool init();
 
-class HelloWorld : public cocos2d::CCLayer {
-public:
-    ~HelloWorld();
-    HelloWorld();
-    
-    // returns a Scene that contains the HelloWorld as the only child
+    // there's no 'id' in cpp, so we recommend to return the class instance pointer
     static cocos2d::CCScene* scene();
     
-    void initPhysics();
-    // adds a new sprite at a given coordinate
-    void addNewSpriteAtPosition(cocos2d::CCPoint p);
+    // a selector callback
+    void menuCloseCallback(CCObject* pSender);
 
-    virtual void draw();
-    virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
-    void update(float dt);
-    
-private:
-    b2World* world;
-    cocos2d::CCTexture2D* m_pSpriteTexture; // weak ref
+    // preprocessor macro for "static create()" constructor ( node() deprecated )
+    CREATE_FUNC(HelloWorld);
 };
 
-#endif // __HELLO_WORLD_H__
+#endif // __HELLOWORLD_SCENE_H__
